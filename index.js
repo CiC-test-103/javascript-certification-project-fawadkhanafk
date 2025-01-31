@@ -3,6 +3,7 @@ const { LinkedList } = require("./LinkedList");
 const { Student } = require('./Student')
 const readline = require('readline');
 
+
 // Initialize terminal interface
 const rl = readline.createInterface({
   input: process.stdin,
