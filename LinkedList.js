@@ -1,6 +1,6 @@
 // Necessary Imports (you will need to use this)
 const { Student } = require('./Student')
-const fs = require('fs').promises;
+const fs = require('fs/promises');
 
 
 /**
@@ -62,6 +62,7 @@ class LinkedList {
     if(!this.head){
 
       this.head = newNode;
+      this.tail = newNode;
       
     } else {
 
@@ -73,6 +74,7 @@ class LinkedList {
       }
       current.next = newNode;
       }
+
       this.length++;   
   }
 
@@ -131,7 +133,7 @@ class LinkedList {
 
     let current = this.head;
     while(current){
-      if(current.data.email === email) {
+      if(current.data.getemail() === email) {
         return current.data;
     }
       current = current.next;
@@ -166,7 +168,7 @@ class LinkedList {
     let current = this.head;
     let students = []
     while(current) {
-      students.push(current.data.name);
+      students.push(current.data.getName());
       current = current.next;
     }
     return students.join (", ");
@@ -182,11 +184,14 @@ class LinkedList {
     const students = [];
     let current = this.head;
     while (current) {
-      students.push(current.data);
+      if(current.data && current.data.getName()){
+        students.push(current.data);
+      }
+
       current = current.next;
       
     }
-    return students.sort((a, b) => a.name.localeCompare(b.name));
+    return students.sort((a, b) => a.getName().localeCompare(b.getName()));
   }
 
   /**
@@ -200,15 +205,16 @@ class LinkedList {
   filterBySpecialization(specialization) {
     // TODO
 
-   const filterdStudents = [];
+   const filteredStudents = [];
    let current = this.head;
    while(current){
-    if(current.data.specialization === specialization){
-      filterdStudents.push(current.data);
+    if(current.data && current.data.specialization === specialization){
+      filteredStudents.push(current.data);
     }
     current = current.next;
    }
-   return this.#sortStudentsByName(filterdStudents);
+   
+   return filteredStudents.sort((a, b) => a.getName().localeCompare(b.getName()));
     
   }
 
@@ -248,8 +254,16 @@ class LinkedList {
     while (current){
       students.push(current.data);
       current = current.next;
+
+    } try {
+
+      await fs.writeFile(fileName, JSON.stringify(students, null, 2));
+      console.log(`Adding student... ${fileName}`);
+    } catch (error) {
+      console.error('Error writing to file:', error)
+
     }
-    await fs.writeFile(fileName, JSON.stringify(students, null, 2));
+    
   }
 
   /**
@@ -262,11 +276,23 @@ class LinkedList {
   async loadFromJSON(fileName) {
     // TODO
 
-    const data = await fs.readFile(fileName, 'utf-8');
-    const students = JSON.parse(data);
-    this.clearStudents();
-    students.forEach(student => this.addStudent(new Student(student)));
+    try { 
+      
+      const data = await fs.readFile(fileName, 'utf-8');
+      const students = JSON.parse(data);
+      this.clearStudents();
+    
+    students.forEach(studentData => {
+      this.addStudent(new Student(studentData))});
+      console.log(`Loading student... ${fileName}`);
+
+  } catch(error){
+
+    console.error(`Error from JSON: ${error.message}`);
+
   }
+
+}
 
 }
 

@@ -49,8 +49,8 @@ async function handleCommand(command) {
         const [name, year, email, specialization] = args;
         // --------> WRITE YOUR CODE BELOW
 
-        const newstudent = new Student(name, parseInt(year), email, specialization);
-        studentManagementSystem.addStudent(newstudent);
+        const newStudent = new Student(name, parseInt(year), email, specialization);
+        studentManagementSystem.addStudent(newStudent);
         studentManagementSystem.displayStudents();
 
         // --------> WRITE YOUR CODE ABOVE
@@ -131,8 +131,17 @@ async function handleCommand(command) {
       // --------> WRITE YOUR CODE BELOW
 
       const [saveFileName] = args;
-      studentManagementSystem.saveToJson(saveFileName);
+
+      try { 
+      await studentManagementSystem.saveToJson(saveFileName);
       console.log(`Data saved to ${saveFileName}`);
+
+      } catch (error) {
+
+        console.log(`Error saving data: ${error.message}`);
+      }
+      
+    
 
       // --------> WRITE YOUR CODE ABOVE
       break;
@@ -150,9 +159,17 @@ async function handleCommand(command) {
       // --------> WRITE YOUR CODE BELOW
 
       const [loadFileName] = args;
-      studentManagementSystem.loadFromJSON(loadFileName);
+
+      try { 
+
+      await studentManagementSystem.loadFromJSON(loadFileName);
       console.log(`Data loaded from ${loadFileName}`);
       studentManagementSystem.displayStudents();
+
+      } catch (error) { 
+
+        console.log(`Error loading data: ${error.message}`);
+      }
 
       // --------> WRITE YOUR CODE ABOVE
       break;
