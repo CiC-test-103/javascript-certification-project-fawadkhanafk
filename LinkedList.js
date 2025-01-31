@@ -1,5 +1,6 @@
 // Necessary Imports (you will need to use this)
 const { Student } = require('./Student')
+const fs = require('fs').promises;
 
 
 /**
@@ -66,7 +67,8 @@ class LinkedList {
 
       current = this.head;
       while(current.next){
-        current.next;
+        
+        current = current.next;
 
       }
       current.next = newNode;
@@ -184,7 +186,7 @@ class LinkedList {
       current = current.next;
       
     }
-    return students.sort((a, b) => a.name.localCompare(b.name));
+    return students.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   /**
@@ -237,6 +239,7 @@ class LinkedList {
    * EFFECTS:   Writes the LinkedList to a JSON file with the specified file name
    * RETURNS:   None
    */
+
   async saveToJson(fileName) {
     // TODO
 
@@ -269,4 +272,6 @@ class LinkedList {
 
 module.exports = { LinkedList }
 
+
+//const ll = LinkedList();
 
