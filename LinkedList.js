@@ -94,7 +94,7 @@ class LinkedList {
       return;
   
 
-    if(this.head.data.email === email) {
+    if(this.head.data.getEmail() === email) {
       this.head = this.head.next;
       if(!this.head) {
         this.tail = null;
@@ -105,7 +105,7 @@ class LinkedList {
 
     let current = this.head;
     while(current.next) {
-      if (current.next.data.email === email){
+      if (current.next.data.getEmail() === email){
         current.next = current.next.next;
       
         if(!current.next){
@@ -133,7 +133,7 @@ class LinkedList {
 
     let current = this.head;
     while(current){
-      if(current.data.getemail() === email) {
+      if(current.data.getEmail() === email) {
         return current.data;
     }
       current = current.next;
@@ -208,7 +208,7 @@ class LinkedList {
    const filteredStudents = [];
    let current = this.head;
    while(current){
-    if(current.data && current.data.specialization === specialization){
+    if(current.data && current.data.getSpecialization() === specialization){
       filteredStudents.push(current.data);
     }
     current = current.next;
@@ -231,7 +231,7 @@ class LinkedList {
    const filterdStudents = [];
    let current = this.head;
    while (current){
-    if(current.data.age >= minYear){
+    if(current.data.getYear() >= minYear){
       filterdStudents.push(current.data)
     }
     current = current.next;
@@ -252,7 +252,13 @@ class LinkedList {
     const students = [];
     let current = this.head;
     while (current){
-      students.push(current.data);
+      students.push({
+        name: current.data.getName(),
+            email: current.data.getEmail(),
+            year: current.data.getYear(),
+            specialization: current.data.getSpecialization(),
+
+      });
       current = current.next;
 
     } try {
@@ -283,7 +289,12 @@ class LinkedList {
       this.clearStudents();
     
     students.forEach(studentData => {
-      this.addStudent(new Student(studentData))});
+      this.addStudent(new Student(
+        studentData.name,
+                studentData.email,
+                studentData.year,
+                studentData.specialization
+      ))});
       console.log(`Loading student... ${fileName}`);
 
   } catch(error){
