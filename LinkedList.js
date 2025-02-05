@@ -135,7 +135,7 @@ class LinkedList {
     while(current){
       
       if(current.data.getEmail() === email) {
-        return current.data.getName();
+        return current.data; 
     }
       current = current.next;
     }
@@ -254,7 +254,7 @@ class LinkedList {
     let current = this.head;
     while (current){
       students.push({
-        name: current.data.getName(),
+            name: current.data.getName(),
             year: current.data.getYear(),
             email: current.data.getEmail(),
             specialization: current.data.getSpecialization(),
@@ -313,5 +313,4 @@ class LinkedList {
 module.exports = { LinkedList }
 
 
-//const ll = LinkedList();
 
