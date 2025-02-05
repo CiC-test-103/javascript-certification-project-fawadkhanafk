@@ -51,7 +51,7 @@ async function handleCommand(command) {
 
         const newStudent = new Student(name, parseInt(year), email, specialization);
         studentManagementSystem.addStudent(newStudent);
-        studentManagementSystem.displayStudents();
+        console.log(studentManagementSystem.displayStudents());
 
         // --------> WRITE YOUR CODE ABOVE
         break;
@@ -70,7 +70,7 @@ async function handleCommand(command) {
 
       const [removeEmail] = args;
       studentManagementSystem.removeStudent(removeEmail);
-      studentManagementSystem.displayStudents();
+      console.log(studentManagementSystem.displayStudents());
       
       // --------> WRITE YOUR CODE ABOVE
       break;
@@ -85,7 +85,7 @@ async function handleCommand(command) {
       console.log('Displaying students...')
       // --------> WRITE YOUR CODE BELOW
 
-      studentManagementSystem.displayStudents();
+      console.log(studentManagementSystem.displayStudents());
 
       // --------> WRITE YOUR CODE ABOVE
       break;
@@ -104,11 +104,12 @@ async function handleCommand(command) {
       // --------> WRITE YOUR CODE BELOW
 
       const [findEmail] = args;
+      
       const foundStudent = studentManagementSystem.findStudent(findEmail);
       
       if(foundStudent){
 
-        console.log(`Student found: ${foundStudent.toString()} `);
+        console.log(`Student found: ${foundStudent} `);
 
       } else {
         

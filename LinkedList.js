@@ -133,8 +133,9 @@ class LinkedList {
 
     let current = this.head;
     while(current){
+      
       if(current.data.getEmail() === email) {
-        return current.data;
+        return current.data.getName();
     }
       current = current.next;
     }
@@ -254,8 +255,8 @@ class LinkedList {
     while (current){
       students.push({
         name: current.data.getName(),
-            email: current.data.getEmail(),
             year: current.data.getYear(),
+            email: current.data.getEmail(),
             specialization: current.data.getSpecialization(),
 
       });
@@ -290,10 +291,12 @@ class LinkedList {
     
     students.forEach(studentData => {
       this.addStudent(new Student(
+
         studentData.name,
-                studentData.email,
-                studentData.year,
-                studentData.specialization
+        studentData.year,
+        studentData.email,
+        studentData.specialization
+
       ))});
       console.log(`Loading student... ${fileName}`);
 
